@@ -1,0 +1,155 @@
+
+:root {
+  --bg: #0b0d12;
+  --card: #0f1420;
+  --muted: #8a93a6;
+  --text: #e7ebf3;
+  --accent: #6ea8fe; /* tweak to match your brand */
+  --accent-2: #a78bfa;
+  --ring: rgba(110, 168, 254, 0.45);
+  --error: #ef4444;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: radial-gradient(1200px 800px at 80% -10%, rgba(104,117,245,.25), transparent 60%),
+              radial-gradient(1000px 600px at 10% 110%, rgba(110,168,254,.25), transparent 60%),
+              var(--bg);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 2vw, 32px);
+}
+.shell {
+  width: min(1100px, 100%);
+  min-height: 640px;
+  border-radius: calc(var(--radius) + 8px);
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,.06);
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+}
+@media (max-width: 900px) {
+  .shell { grid-template-columns: 1fr; min-height: auto; }
+  .visual { display: none; }
+}
+
+/* Left: form */
+.panel { position: relative; background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); }
+.content {
+  padding: clamp(24px, 5vw, 48px);
+  max-width: 520px;
+}
+.brand {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 28px;
+  font-weight: 700; letter-spacing: .2px;
+}
+.brand .dot { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 0 0 6px rgba(110,168,254,.15); }
+
+h1 { margin: 0 0 6px; font-size: clamp(26px, 3.5vw, 34px); line-height: 1.15; }
+.sub { margin: 0 0 28px; color: var(--muted); font-size: 14px; }
+
+.tabs { display: inline-grid; grid-auto-flow: column; gap: 8px; padding: 6px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 999px; }
+.tab-btn { appearance: none; border: 0; padding: 10px 16px; border-radius: 999px; font-weight: 600; color: var(--muted); background: transparent; cursor: pointer; transition: .2s ease; }
+.tab-btn.active { color: var(--text); background: linear-gradient(135deg, rgba(110,168,254,.25), rgba(167,139,250,.25)); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); }
+
+form { margin-top: 22px; display: grid; gap: 14px; }
+.field { display: grid; gap: 8px; }
+.label { font-size: 13px; color: var(--muted); }
+.input {
+  width: 100%;
+  background: #0b1020;
+  border: 1px solid rgba(255,255,255,.08);
+  color: var(--text);
+  padding: 14px 14px;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.input:focus { border-color: var(--accent); box-shadow: 0 0 0 6px var(--ring); }
+
+.row { display: flex; gap: 12px; }
+.row .field { flex: 1; }
+
+.actions { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
+.checkbox { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+.checkbox input { width: 18px; height: 18px; accent-color: var(--accent); }
+
+.btn {
+  appearance: none; border: 0; cursor: pointer;
+  padding: 14px 18px; border-radius: 12px; font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #081018; box-shadow: 0 10px 24px rgba(110,168,254,.35);
+  transition: transform .06s ease, box-shadow .2s ease; text-shadow: 0 1px 0 rgba(255,255,255,.3);
+}
+.btn:active { transform: translateY(1px); box-shadow: 0 6px 16px rgba(110,168,254,.28); }
+
+.small {
+  margin-top: 10px; font-size: 13px; color: var(--muted);
+}
+.small a { color: var(--text); text-decoration: none; border-bottom: 1px dashed rgba(255,255,255,.2); }
+
+.divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent); margin: 20px 0; }
+
+/* Right: visual */
+.visual {
+  position: relative;
+  background: #070a12;
+  overflow: hidden;
+}
+.visual::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(800px 600px at 70% 30%, rgba(110,168,254,.18), transparent 60%),
+              radial-gradient(600px 400px at 10% 90%, rgba(167,139,250,.16), transparent 60%);
+  pointer-events: none;
+}
+.visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(1.05) contrast(1.03) brightness(.92); }
+.glass {
+  position: absolute; inset: auto 24px 24px 24px; 
+  background: rgba(17, 20, 32, .6);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(8px);
+  border-radius: 14px; padding: 16px 18px; box-shadow: var(--shadow);
+}
+.glass h3 { margin: 0 0 6px; font-size: 16px; }
+.glass p { margin: 0; color: var(--muted); font-size: 13px; }
+
+/* Helper: hide/show forms */
+.hidden { display: none; }
+
+
+
+/* Single-column shell when there's no .visual panel */
+.shell.full {
+  grid-template-columns: 1fr;     /* kill the 2-col grid */
+  min-height: 70svh;              /* comfortable height; tweak as you like */
+}
+
+/* Let the panel take the whole shell width */
+.shell.full .panel {
+  width: 100%;
+}
+
+/* Widen the inner content (or remove max-width entirely if you want edge-to-edge) */
+.shell.full .content {
+  max-width: 720px;               /* bump from 520px; set to 'none' for 100% */
+  margin-inline: auto;            /* center it */
+  padding: clamp(24px, 5vw, 56px);
+}
+
+/* Center tabs on single-column layout (optional but looks nicer) */
+.shell.full .tabs {
+  justify-content: center;
+}
+
+/* If any leftover spacing expected on mobile, keep it tidy */
+@media (max-width: 900px) {
+  .shell.full { min-height: auto; }
+}
