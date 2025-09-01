@@ -1,38 +1,19 @@
-# sv
+# GoalTracker — SvelteKit Goals/Notes (Zero-Native Build)
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Lightweight goals/tasks tracker with a clean glass UI. Create, edit (PUT), complete, delete, take per-task notes, and “Audit” overdue items. Auth uses cookie sessions. Built to be **clone-and-run** (no C++ toolchains): password hashing uses Node `crypto.scrypt`, storage uses **sql.js** (SQLite/WASM) persisted to a local file.
 
-## Creating a project
+## Features
+- Auth: register/login, cookie sessions, floating logout
+- Tasks: add, edit (PUT), complete, delete, notes, native date picker
+- Audit: marks tasks *failed* when `createdAt + durationHours < now`
+- UI: grey “glass” theme, accessible auth tabs, smooth transitions
+- Persistence: file-backed **sql.js** at `data/dev.sqlite` (git-ignored)
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Tech
+SvelteKit + TypeScript • `sql.js` • Node `crypto.scrypt` • Zod
 
-```sh
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+## Quick start
+```bash
+# Node 18/20+ recommended
+npm i
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
