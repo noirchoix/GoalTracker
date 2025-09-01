@@ -1,3 +1,32 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+
+.panel{
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+}
+
+/* Floating logout only; doesn't affect page layout */
+.logout-fixed{
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 50;
+  margin: 0;
+}
+
+.logout-btn{
+  appearance: none;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: rgba(0,0,0,.75);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.15);
+  backdrop-filter: blur(6px);
+}
+.logout-btn:hover { filter: brightness(1.05); }
+.logout-btn:active { transform: translateY(1px); }

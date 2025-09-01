@@ -156,26 +156,31 @@
   }
 
   async function saveEdit(task: Task, fields: Partial<Task>) {
-    // Apply local changes first (for the bound inputs in edit mode)
-    task.title = fields.title ?? task.title;
-    task.dueDate = fields.dueDate ?? task.dueDate;
-    if (fields.durationHours !== undefined) {
-      task.durationHours = Math.max(0, Number(fields.durationHours) || 0);
-    }
-
-    await fetch(`/api/tasks/${task.id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        title: task.title,
-        due_date: task.dueDate,
-        duration_hours: task.durationHours
-      })
-    });
-
-    task.editing = false;
-    await refresh();
+  // apply local changes first so bindings reflect the latest values
+  task.title = fields.title ?? task.title;
+  task.dueDate = fields.dueDate ?? task.dueDate;
+  if (fields.durationHours !== undefined) {
+    task.durationHours = Math.max(0, Number(fields.durationHours) || 0);
   }
+
+  await fetch(`/api/tasks/${task.id}`, {
+    method: 'PUT', // ⟵ use PUT now
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      title: task.title,
+      due_date: task.dueDate,
+      duration_hours: task.durationHours,
+      // include completion + notes so PUT represents the whole resource
+      completed: task.completed ? 1 : 0,
+      completed_at: task.completed ? task.completedAt : null,
+      notes: task.notes
+    })
+  });
+
+  task.editing = false;
+  await refresh();
+}
+
 
   async function saveNotes(task: Task) {
     await fetch(`/api/tasks/${task.id}`, {
