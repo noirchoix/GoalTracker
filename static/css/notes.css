@@ -1,0 +1,288 @@
+/* ===== Base + Theme ===== */
+:root {
+  --bg-0: #0f1115;        /* deep grey */
+  --bg-1: #17191f;        /* panel grey */
+  --ink: #e7ebf0;         /* main text on grey */
+  --muted: #9aa3ad;
+
+  --glass-tint: rgba(255, 255, 255, 0.06);
+  --glass-brd: rgba(255, 255, 255, 0.14);
+
+  /* White reflective “glass” */
+  --whiteglass-1: rgba(255, 255, 255, 0.98);
+  --whiteglass-2: rgba(248, 248, 248, 0.92);
+  --whiteglass-brd: rgba(255, 255, 255, 0.65);
+
+  /* Black reflective button */
+  --btn-black-1: #0f0f10;
+  --btn-black-2: #000000;
+  --btn-black-brd: #000;
+  --focus: #9ec1ff;
+  --shadow: rgba(0, 0, 0, 0.35);
+
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji", sans-serif;
+}
+
+/* Grey background + subtle vignette */
+body {
+  background:
+    radial-gradient(1200px 800px at 10% -10%, rgba(255,255,255,0.04), transparent 55%),
+    radial-gradient(1200px 800px at 110% 110%, rgba(255,255,255,0.03), transparent 55%),
+    linear-gradient(180deg, #121418 0%, #16181d 40%, #0f1115 100%);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Page “glass” wrapper: your route content sits on a frosted layer */
+main {
+  max-width: 960px;
+  margin: 24px auto;
+  padding: 16px;
+  background: var(--glass-tint);
+  border: 1px solid var(--glass-brd);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border-radius: 18px;
+  box-shadow: 0 18px 50px var(--shadow), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* ===== Header / Toolbar ===== */
+.toolbar { display:flex; align-items:center; gap:1rem; padding:0.5rem 0 1rem; }
+.toolbar h1 { font-size:1.4rem; margin:0; }
+.spacer { flex:1; }
+
+/* ===== Cards: white reflective glass ===== */
+.card {
+  background: rgba(255,255,255,0.1);
+  color: var(--ink);
+  border: 1px solid rgba(255,255,255,0.22);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  border-radius: 16px;
+  padding: 1rem;
+  margin: 1rem 0;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    0 10px 30px rgba(0,0,0,0.10);
+  position: relative;
+  overflow: clip;
+}
+/* subtle top highlight */
+.card::before {
+  content: "";
+  position: absolute; inset: 0 0 auto 0; height: 38px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.75), transparent);
+  pointer-events: none;
+}
+
+/* ===== Text + meta ===== */
+.muted { color:#6b7280; }
+h3 { margin:0; font-size:1.05rem; }
+.done { text-decoration: line-through; color:#6b7280; }
+.titleLine { display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; }
+.meta { display:flex; gap:1rem; flex-wrap:wrap; font-size:0.9rem; }
+
+/* ===== Inputs: white reflective glass ===== */
+.field { display:flex; flex-direction:column; gap:0.35rem; }
+
+.input, .textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--whiteglass-brd);
+  padding: 0.6rem 0.7rem;
+  font: inherit;
+  color: #0f141c;
+  background: linear-gradient(160deg, #ffffff, #f8f8f8);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    0 6px 18px rgba(0,0,0,0.06);
+}
+.input::placeholder, .textarea::placeholder { color:#a3a3a3; }
+
+.input:focus, .textarea:focus {
+  outline: none;
+  border-color: var(--focus);
+  box-shadow:
+    0 0 0 3px rgba(158, 193, 255, 0.35),
+    inset 0 1px 0 rgba(255,255,255,0.8),
+    0 6px 18px rgba(0,0,0,0.08);
+}
+
+.textarea { resize: vertical; }
+
+/* ===== Lists / Rows ===== */
+.list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.5rem; }
+.row {
+  display:grid; grid-template-columns: 28px 1fr auto;
+  gap:0.75rem; align-items:start;
+  padding:0.6rem;
+  border:1px solid #eceff3;
+  border-radius:12px;
+  background: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.7),
+    0 8px 14px rgba(0,0,0,0.05);
+}
+.check { width:20px; height:20px; margin-top:0.35rem; }
+.content { display:flex; flex-direction:column; gap:0.35rem; }
+.rowActions { display:flex; gap:0.25rem; }
+
+/* ===== Chips (status) ===== */
+.chip {
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px; font-size: 0.8rem;
+  border: 1px solid #e1e6ef;
+  background: linear-gradient(#ffffff, #f6f8fb);
+  color: #26313d;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+}
+.chip[data-status="completed"] { border-color:#34d399; color:#065f46; background:linear-gradient(#eafff5,#d1fae5); }
+.chip[data-status="pending"]   { border-color:#fbbf24; color:#92400e; background:linear-gradient(#fff9eb,#fffbeb); }
+.chip[data-status="failed"]    { border-color:#fca5a5; color:#991b1b; background:linear-gradient(#ffe9e9,#fee2e2); }
+
+/* ===== Buttons: black reflective ===== */
+.btn {
+  padding: 0.6rem 0.95rem;
+  border-radius: 12px;
+  border: 1px solid var(--btn-black-brd);
+  background: linear-gradient(180deg, var(--btn-black-1), var(--btn-black-2));
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.18),
+    0 10px 20px rgba(0,0,0,0.35);
+  transition: transform .05s ease, box-shadow .15s ease, filter .15s ease;
+}
+.btn:hover {
+  filter: brightness(1.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.25),
+    0 12px 24px rgba(0,0,0,0.4);
+}
+.btn:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    0 8px 16px rgba(0,0,0,0.3);
+}
+.btn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(158, 193, 255, 0.5),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+/* Optional outline/ghost that still reads “black” */
+.btn.ghost {
+  background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.15));
+  color: #0f0f10;
+  border: 1px solid rgba(0,0,0,0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.45),
+    0 8px 18px rgba(0,0,0,0.25);
+}
+.btn:disabled { opacity:0.6; cursor:not-allowed; }
+
+/* ===== Notes (details/summary) ===== */
+.notes { margin-top:0.5rem; }
+.notes summary {
+  cursor: pointer;
+  color: #374151;
+  list-style: none;
+}
+.notes summary::-webkit-details-marker { display:none; }
+.notes summary::after {
+  content: "▸";
+  display:inline-block; transform: translateY(-1px) rotate(0deg);
+  margin-left: 6px; opacity: 0.6;
+  transition: transform .15s ease;
+}
+.notes[open] summary::after { transform: translateY(-1px) rotate(90deg); opacity: 0.8; }
+.notesActions { margin-top:0.4rem; display:flex; justify-content:flex-end; }
+
+/* ===== Grids ===== */
+.grid { display:grid; grid-template-columns: 1fr 180px 160px auto; gap:0.75rem; align-items:end; }
+.editGrid { display:grid; grid-template-columns: 1fr 180px 140px auto; gap:0.5rem; }
+.editActions { display:flex; gap:0.5rem; align-items:center; }
+
+@media (max-width: 800px) {
+  main { padding: 12px; margin: 16px auto; }
+  .grid { grid-template-columns: 1fr; }
+  .editGrid { grid-template-columns: 1fr; }
+}
+
+
+/* ===== Typography: darker + thicker ===== */
+:root {
+  /* text colors */
+  --ink: #d1d7df;          /* darker than before on the dark page */
+  --ink-strong: #0a0d12;   /* deep text for white cards/inputs */
+
+  /* weights (works best with variable Inter; otherwise nearest step) */
+  --w-regular: 500;
+  --w-medium: 600;
+  --w-semibold: 650;
+  --w-bold: 750;
+  --w-extrabold: 800;
+}
+
+/* Base on dark backdrop */
+body {
+  color: var(--ink);
+  font-weight: var(--w-regular);
+  letter-spacing: -0.005em;
+  text-rendering: optimizeLegibility;
+}
+
+/* Page header */
+.toolbar h1 {
+  color: var(--ink);
+  font-weight: var(--w-extrabold);
+  letter-spacing: -0.01em;
+}
+
+/* Cards use deep ink for stronger contrast on white glass */
+.card { color: var(--ink-strong); }
+
+/* Headings inside cards/content */
+h2 { font-weight: var(--w-bold); letter-spacing: -0.01em; color: var(--ink-strong); }
+h3 { font-weight: var(--w-bold); letter-spacing: -0.01em; color: var(--ink-strong); }
+
+/* Labels + small headings */
+.label { font-weight: var(--w-semibold); color: var(--ink-strong); }
+
+/* Inputs / Textareas: thicker text + darker placeholder */
+.input, .textarea {
+  color: var(--ink-strong);
+  font-weight: var(--w-medium);
+}
+.input::placeholder,
+.textarea::placeholder {
+  color: #7f8894;
+  font-weight: var(--w-regular);
+}
+
+/* Meta text is still muted but a bit thicker so it reads better */
+.muted { color: #6b7280; font-weight: var(--w-medium); }
+
+/* Chips: slightly thicker text */
+.chip { font-weight: var(--w-medium); }
+
+/* Buttons: black reflective + heavier label */
+.btn {
+  font-weight: var(--w-bold);
+  letter-spacing: -0.01em;
+}
+.btn.ghost { font-weight: var(--w-semibold); }
+
+/* Row titles thicker */
+.titleLine h3 { font-weight: var(--w-bold); }
+
+/* Notes summary thicker for affordance */
+.notes summary { font-weight: var(--w-semibold); color: #2a3340; }
+
+/* Checkbox label weight (if you ever use labels next to checkboxes) */
+.checkbox { font-weight: var(--w-medium); }
